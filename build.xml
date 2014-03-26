@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="dist" name="Create Runnable Jar for Project JTK with libraries in sub-folder">
+
+	<property name="component.name" value="jtk" />
+	<property name="component.version" value="1.0.0" />
+	<property name="component.vendor" value="ENGYS" />
+
+	<property name="jar.name" value="${component.name}.jar" />
+
+	<property name="src.dir" value="src" />
+	<property name="build.dir" value="build" />
+	<property name="dist.dir" value="dist" />
+	<property name="lib.dir" value="lib" />
+
+	<path id="build.path">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="start">
+		<echo>
+	**********************************
+	               JTK                    
+	**********************************
+	        </echo>
+	</target>
+
+	<target name="clean" depends="start">
+		<delete dir="${build.dir}" />
+		<delete quiet="true">
+			<fileset dir="${src.dir}" includes="**/*.class" />
+		</delete>
+	</target>
+
+	<target name="init" depends="start">
+		<mkdir dir="${build.dir}" />
+	</target>
+
+	<target name="compile" depends="init">
+		<javac debug="true" destdir="${build.dir}" target="1.7" source="1.7" verbose="false" srcdir="${src.dir}" includeantruntime="false" includejavaruntime="yes">
+			<compilerarg value="-XDignore.symbol.file" />
+			<compilerarg value="-Xlint:unchecked" />
+			<include name="jtk/**/*.java" />
+			<classpath refid="build.path" />
+		</javac>
+		<copy todir="${build.dir}">
+			<fileset dir="${src.dir}" includes="**/*.png, **/*.gif, **/*.properties" />
+		</copy>
+	</target>
+
+	<target name="jar" depends="compile" description="">
+		<pathconvert property="main.class.path" pathsep=" ">
+			<path refid="build.path" />
+			<mapper>
+				<chainedmapper>
+					<flattenmapper />
+				</chainedmapper>
+			</mapper>
+		</pathconvert>
+
+		<!-- set the date -->
+		<tstamp>
+			<format property="TODAY" pattern="yyyy-MM-dd" />
+		</tstamp>
+
+		<!-- create the jar -->
+
+		<jar jarfile="${dist.dir}/${jar.name}" basedir="${build.dir}">
+			<!-- define MANIFEST.MF -->
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Specification-Title" value="${component.name}" />
+				<attribute name="Specification-Version" value="${component.version}" />
+				<attribute name="Specification-Vendor" value="${component.vendor}" />
+				<attribute name="Implementation-Title" value="${component.name}" />
+				<attribute name="Implementation-Version" value="${component.version}-${TODAY}" />
+				<attribute name="Implementation-Vendor" value="${component.vendor}" />
+
+				<attribute name="Class-Path" value="${main.class.path}" />
+				<attribute name="Main-Class" value="jtk.examples.VTKPanelExample" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="dist" depends="jar" description="">
+		<copy todir="${dist.dir}" filtering="off">
+			<fileset dir="${lib.dir}" includes="*.jar" />
+		</copy>
+	</target>
+
+</project>
