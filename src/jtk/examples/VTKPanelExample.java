@@ -48,6 +48,7 @@ import vtk.vtkCompositeDataGeometryFilter;
 import vtk.vtkCutter;
 import vtk.vtkInteractorStyleTrackballCamera;
 import vtk.vtkMultiBlockDataSet;
+import vtk.vtkNativeLibrary;
 import vtk.vtkOpenFOAMReader;
 import vtk.vtkPicker;
 import vtk.vtkPlane;
@@ -60,20 +61,22 @@ import vtk.vtkTransform;
 public class VTKPanelExample {
 
     static {
-        System.loadLibrary("vtkCommonJava");
-        System.loadLibrary("vtkFilteringJava");
-        // System.loadLibrary("vtkGenericFilteringJava");
-        // System.loadLibrary("vtkGeovisJava");
-        System.loadLibrary("vtkGraphicsJava");
-        // System.loadLibrary("vtkHybridJava");
-        System.loadLibrary("vtkImagingJava");
-        // System.loadLibrary("vtkInfovisJava");
-        System.loadLibrary("vtkIOJava");
-        System.loadLibrary("vtkParallelJava");
-        System.loadLibrary("vtkRenderingJava");
-        // System.loadLibrary("vtkViewsJava");
-        // System.loadLibrary("vtkVolumeRenderingJava");
-        System.loadLibrary("vtkWidgetsJava");
+    	vtkNativeLibrary.LoadAllNativeLibraries();
+    	
+//        System.loadLibrary("vtkCommonJava");
+//        System.loadLibrary("vtkFilteringJava");
+//        // System.loadLibrary("vtkGenericFilteringJava");
+//        // System.loadLibrary("vtkGeovisJava");
+//        System.loadLibrary("vtkGraphicsJava");
+//        // System.loadLibrary("vtkHybridJava");
+//        System.loadLibrary("vtkImagingJava");
+//        // System.loadLibrary("vtkInfovisJava");
+//        System.loadLibrary("vtkIOJava");
+//        System.loadLibrary("vtkParallelJava");
+//        System.loadLibrary("vtkRenderingJava");
+//        // System.loadLibrary("vtkViewsJava");
+//        // System.loadLibrary("vtkVolumeRenderingJava");
+//        System.loadLibrary("vtkWidgetsJava");
 
     }
 
