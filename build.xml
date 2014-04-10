@@ -42,6 +42,7 @@
 			<compilerarg value="-XDignore.symbol.file" />
 			<compilerarg value="-Xlint:unchecked" />
 			<include name="jtk/**/*.java" />
+			<include name="vtk/**/*.java" />
 			<classpath refid="build.path" />
 		</javac>
 		<copy todir="${build.dir}">
@@ -78,7 +79,7 @@
 				<attribute name="Implementation-Vendor" value="${component.vendor}" />
 
 				<attribute name="Class-Path" value="${main.class.path}" />
-				<attribute name="Main-Class" value="jtk.examples.VTKPanelExample" />
+				<attribute name="Main-Class" value="jtk.examples.ExamplesMain" />
 			</manifest>
 		</jar>
 	</target>

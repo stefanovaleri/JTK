@@ -51,7 +51,7 @@ import vtk.vtkScalarBarWidget;
 import vtk.vtkSphereSource;
 import vtk.vtkWindowToImageFilter;
 
-public class VtkLegendSample {
+public class LegendExample {
 
     static {
         vtkNativeLibrary.LoadAllNativeLibraries();

@@ -36,8 +36,6 @@ import java.awt.event.MouseWheelListener;
 import javax.swing.SwingUtilities;
 
 import vtk.vtkGenericRenderWindowInteractor;
-import vtk.vtkInteractorStyleRubberBandZoom;
-import vtk.vtkInteractorStyleTrackballCamera;
 
 public class VTKMouseHandler implements MouseListener, MouseMotionListener, MouseWheelListener, KeyListener {
 
@@ -103,8 +101,6 @@ public class VTKMouseHandler implements MouseListener, MouseMotionListener, Mous
         if (!isDragging) {
             int[] pos = iren.GetEventPosition();
             //PickManager.pickTo(vtkPanel).pick(pos[0], pos[1]);
-        } else if(iren.GetInteractorStyle() instanceof vtkInteractorStyleRubberBandZoom){
-        	iren.SetInteractorStyle(new vtkInteractorStyleTrackballCamera());
         }
 
         vtkPanel.setHighRendering();
@@ -131,13 +127,13 @@ public class VTKMouseHandler implements MouseListener, MouseMotionListener, Mous
 
     @Override
     public void mouseMoved(MouseEvent e) {
-//    	vtkGenericRenderWindowInteractor iren = vtkPanel.getRenderWindowInteractor();
-//        iren.SetEventInformationFlipY(e.getX(), e.getY(), ctrlPressed(e), shiftPressed(e), '0', 0, "0");
-//
-//        vtkPanel.lock();
-//        iren.MouseMoveEvent();
-//        vtkPanel.unlock();
-//        isDragging = false;
+    	vtkGenericRenderWindowInteractor iren = vtkPanel.getRenderWindowInteractor();
+        iren.SetEventInformationFlipY(e.getX(), e.getY(), ctrlPressed(e), shiftPressed(e), '0', 0, "0");
+
+        vtkPanel.lock();
+        iren.MouseMoveEvent();
+        vtkPanel.unlock();
+        isDragging = false;
     }
 
     @Override

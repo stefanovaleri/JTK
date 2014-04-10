@@ -280,6 +280,20 @@ public class VTKRenderPanel extends vtkPanel implements View3DPanel {
 			e.printStackTrace();
 		}
     }
+    
+    public void ParallelProjectionOn() {
+    	Lock();
+    	GetRenderer().GetActiveCamera().ParallelProjectionOn();
+    	Render();
+    	UnLock();
+    }
+    
+    public void ParallelProjectionOff() {
+    	Lock();
+    	GetRenderer().GetActiveCamera().ParallelProjectionOff();
+    	Render();
+    	UnLock();
+    }
 
     @Override
     public void setHighRendering() {

@@ -8,6 +8,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import jtk.core.VTKRenderPanel;
 import vtk.vtkActor;
@@ -21,33 +22,34 @@ import vtk.vtkPolyDataMapper;
 import vtk.vtkRenderer;
 import vtk.vtkSphereSource;
 
-public class vtkMorphExample {
+public class MorphExampleSphereOctahedron implements JTKDemo {
 
-    static {
-        vtkNativeLibrary.LoadAllNativeLibraries();
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(new BorderLayout());
-
-        final VTKRenderPanel panel = new VTKRenderPanel();
-
-        // Create a renderer and render window
-        addActor(panel.GetRenderer());
-
-        frame.setSize(800, 800);
-        frame.getContentPane().add(panel, BorderLayout.CENTER);
-        // frame.getContentPane().add(getButtonsPanel(renderer),
-        // BorderLayout.SOUTH);
-        frame.setVisible(true);
-    }
-
+	@Override
+	public void demo() {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				JFrame frame = new JFrame();
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frame.getContentPane().setLayout(new BorderLayout());
+				
+				final VTKRenderPanel panel = new VTKRenderPanel();
+				
+				// Create a renderer and render window
+				addActor(panel.GetRenderer());
+				
+				frame.setSize(800, 800);
+				frame.getContentPane().add(panel, BorderLayout.CENTER);
+				// frame.getContentPane().add(getButtonsPanel(renderer),
+				// BorderLayout.SOUTH);
+				frame.setVisible(true);
+			}
+		});
+	}
+	
     private static JPanel getButtonsPanel(final vtkRenderer renderer) {
         JPanel panel = new JPanel(new FlowLayout());
         panel.add(new JButton(new AbstractAction("Print") {
-
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -69,15 +71,10 @@ public class vtkMorphExample {
     	    // Generate some scalars on the polydata
     	    vtkElevationFilter ele = new vtkElevationFilter();
     	    ele.SetInputConnection(sphere.GetOutputPort());
-    	    ele.SetLowPoint(0,0,-0.5);
-    	    ele.SetHighPoint(0,0,0.5);
-    	    ele.SetLowPoint((bounds[1] + bounds[0]) / 2.0,
-    	    		(bounds[3] + bounds[2]) / 2.0,
-    	    		-bounds[5]);
-    	    ele.SetHighPoint((bounds[1] + bounds[0]) / 2.0,
-    	    		(bounds[3] + bounds[2]) / 2.0,
-    	    		bounds[5]);
-
+//    	    ele.SetLowPoint(0,0,-0.5);
+//    	    ele.SetHighPoint(0,0,0.5);
+    	    ele.SetLowPoint((bounds[1] + bounds[0]) / 2.0,	(bounds[3] + bounds[2]) / 2.0, -bounds[5]);
+    	    ele.SetHighPoint((bounds[1] + bounds[0]) / 2.0, (bounds[3] + bounds[2]) / 2.0, bounds[5]);
     	    ele.Update();
 
     	    vtkPolyData input = new vtkPolyData();
@@ -86,8 +83,7 @@ public class vtkMorphExample {
     	    // Now create a control mesh, in this case a octagon that encloses
     	    // the point set
     	    vtkPoints pts = new vtkPoints();
-    	    pts.SetNumberOfPoints(5);
-//    	    pts.SetNumberOfPoints(6);
+    	    pts.SetNumberOfPoints(6);
     	    pts.SetPoint(0,
     	                  bounds[0] - .1 * (bounds[1] - bounds[0]),
     	                  (bounds[3] + bounds[2]) / 2.0,
@@ -108,10 +104,10 @@ public class vtkMorphExample {
     	                  (bounds[1] + bounds[0]) / 2.0,
     	                  (bounds[3] + bounds[2]) / 2.0,
     	                  bounds[4] - .1 * (bounds[5] - bounds[4]));
-//    	    pts.SetPoint(5,
-//    	                  (bounds[1] + bounds[0]) / 2.0,
-//    	                  (bounds[3] + bounds[2]) / 2.0,
-//    	                  bounds[5] + .1 * (bounds[5] - bounds[4]));
+    	    pts.SetPoint(5,
+    	                  (bounds[1] + bounds[0]) / 2.0,
+    	                  (bounds[3] + bounds[2]) / 2.0,
+    	                  bounds[5] + .1 * (bounds[5] - bounds[4]));
     	   
     	    vtkCellArray tris = new vtkCellArray();
     	    tris.InsertNextCell(3);
@@ -122,14 +118,14 @@ public class vtkMorphExample {
     	    tris.InsertCellPoint(3); tris.InsertCellPoint(1); tris.InsertCellPoint(4);
     	    tris.InsertNextCell(3);
     	    tris.InsertCellPoint(0); tris.InsertCellPoint(3); tris.InsertCellPoint(4);
-//    	    tris.InsertNextCell(3);
-//    	    tris.InsertCellPoint(0); tris.InsertCellPoint(2); tris.InsertCellPoint(5);
-//    	    tris.InsertNextCell(3);
-//    	    tris.InsertCellPoint(2); tris.InsertCellPoint(1); tris.InsertCellPoint(5);
-//    	    tris.InsertNextCell(3);
-//    	    tris.InsertCellPoint(1); tris.InsertCellPoint(3); tris.InsertCellPoint(5);
-//    	    tris.InsertNextCell(3);
-//    	    tris.InsertCellPoint(3); tris.InsertCellPoint(0); tris.InsertCellPoint(5);
+    	    tris.InsertNextCell(3);
+    	    tris.InsertCellPoint(0); tris.InsertCellPoint(2); tris.InsertCellPoint(5);
+    	    tris.InsertNextCell(3);
+    	    tris.InsertCellPoint(2); tris.InsertCellPoint(1); tris.InsertCellPoint(5);
+    	    tris.InsertNextCell(3);
+    	    tris.InsertCellPoint(1); tris.InsertCellPoint(3); tris.InsertCellPoint(5);
+    	    tris.InsertNextCell(3);
+    	    tris.InsertCellPoint(3); tris.InsertCellPoint(0); tris.InsertCellPoint(5);
     	   
     	    vtkPolyData pd = new vtkPolyData();
     	    pd.SetPoints(pts);
@@ -150,12 +146,10 @@ public class vtkMorphExample {
     	    deform.Update(); // this creates the initial weights
     	   
     	    // Now move one point and deform
-//    	    double[] controlPoint = new double[3];
-//    	    pts.GetPoint(5, controlPoint);
-//    	    pts.SetPoint(5, controlPoint[0],
-//    	                  controlPoint[1],
-//    	                  bounds[5] + 2 * (bounds[5] - bounds[4]));
-//    	    pts.Modified();
+    	    double[] controlPoint = new double[3];
+    	    pts.GetPoint(5, controlPoint);
+    	    pts.SetPoint(5, controlPoint[0], controlPoint[1], bounds[5] + 2 * (bounds[5] - bounds[4]));
+    	    pts.Modified();
     	   
     	    // Display the warped polydata
     	    vtkPolyDataMapper polyMapper = new vtkPolyDataMapper();
@@ -175,7 +169,7 @@ public class vtkMorphExample {
     	    origActor.GetProperty().SetEdgeColor(1,1,0);
     	    origActor.GetProperty().SetLineWidth(2);
     	    
-//    	    renderer.AddActor(origActor);
+    	    renderer.AddActor(origActor);
     	    renderer.AddActor(polyActor);
     	    renderer.AddActor(meshActor);
     	   

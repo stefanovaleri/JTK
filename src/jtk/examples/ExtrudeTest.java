@@ -37,23 +37,8 @@ import vtk.vtkRenderWindowInteractor;
 import vtk.vtkRenderer;
 import vtk.vtkRotationalExtrusionFilter;
 
-public class ExtrudeTest {
+public class ExtrudeTest implements JTKDemo {
 
-    /**
-     * @param args
-     */
-    // load the necessary interface libraries on first reference to the
-    // class.
-    static {
-        System.loadLibrary("vtkCommonJava");
-        System.loadLibrary("vtkFilteringJava");
-        System.loadLibrary("vtkIOJava");
-        System.loadLibrary("vtkGeovisJava");
-        System.loadLibrary("vtkImagingJava");
-        System.loadLibrary("vtkGraphicsJava");
-        System.loadLibrary("vtkRenderingJava");
-        System.loadLibrary("vtkWidgetsJava");
-    }
     /*
      * Instance variable of RenderWindowIneractor for reference by addObserver
      * Callback.
@@ -73,15 +58,7 @@ public class ExtrudeTest {
     char curIStyle = 'A'; // interaction style A = Actor C = camera,
 
     // toggled by 'C' key handler.
-    /*
-     * Main routine to invoke example.
-     */
-    public static void main(String[] args) {
-        // TODO Auto-generated method stub
-        ExtrudeTest me = new ExtrudeTest();
-        me.doit();
-    }
-
+ 
     /*
      * toggleStyle is a callback set on the renderWindowInteractor for the
      * CharEvent using AddObserver. It expects the this pointer for the class
@@ -108,7 +85,8 @@ public class ExtrudeTest {
      * objects, creates the mappers and actors, renderWindow and Interactor. and
      * specifies the CharEvent callback for the interaction control.
      */
-    void doit() {
+    @Override
+    public void demo() {
 
         vtkPoints W21x101 = new vtkPoints();
 

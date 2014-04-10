@@ -31,16 +31,16 @@ import java.awt.event.ComponentListener;
 import java.util.Arrays;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import jtk.core.VTKRenderPanel;
 import vtk.vtkCoordinate;
 import vtk.vtkImageData;
 import vtk.vtkLogoRepresentation;
 import vtk.vtkLogoWidget;
-import vtk.vtkNativeLibrary;
 import vtk.vtkPNGReader;
 
-public class VtkTOUSESample {
+public class LogoExample implements JTKDemo {
 
 	private vtkLogoWidget logoWidget;
 	private VTKRenderPanel vtkRendererPanel;
@@ -48,54 +48,50 @@ public class VtkTOUSESample {
 	private vtkImageData imageData;
 //	private AxesWidget axesWidget;
 
-	public VtkTOUSESample(VTKRenderPanel vtkRendererPanel) {
-		this.vtkRendererPanel = vtkRendererPanel;
+	public void demo() {
 		this.imageData = createImageData();
-		vtkLogoRepresentation logoRepresentation = createRepresentation();
-		createWidget(logoRepresentation);
-		logoWidget.On();
-		
-		//axesWidget = new AxesWidget(vtkRendererPanel);
-	}
-
-	static {
-		vtkNativeLibrary.LoadAllNativeLibraries();
-	}
-
-	public static void main(String[] args) {
-		final VTKRenderPanel p = new VTKRenderPanel();
-		final JFrame frame = new JFrame();
-		final VtkTOUSESample sample = new VtkTOUSESample(p);
-		frame.addComponentListener(new ComponentListener() {
-
+		SwingUtilities.invokeLater(new Runnable() {
 			@Override
-			public void componentShown(ComponentEvent e) {
-				sample.placeRepresentationDisplay(frame.getSize());
-			}
-
-			@Override
-			public void componentResized(ComponentEvent e) {
-				sample.placeRepresentationDisplay(frame.getSize());
-			}
-
-			@Override
-			public void componentMoved(ComponentEvent e) {
-				//sample.placeRepresentation();
-			}
-
-			@Override
-			public void componentHidden(ComponentEvent e) {
-				//sample.placeRepresentation();
+			public void run() {
+				vtkRendererPanel = new VTKRenderPanel();
+				createRepresentation();
+				createWidget();
+				logoWidget.On();
+				//axesWidget = new AxesWidget(vtkRendererPanel);
+				
+				final JFrame frame = new JFrame("Logo Example");
+				frame.addComponentListener(new ComponentListener() {
+					
+					@Override
+					public void componentShown(ComponentEvent e) {
+						placeRepresentationDisplay(frame.getSize());
+					}
+					
+					@Override
+					public void componentResized(ComponentEvent e) {
+						placeRepresentationDisplay(frame.getSize());
+					}
+					
+					@Override
+					public void componentMoved(ComponentEvent e) {
+						//sample.placeRepresentation();
+					}
+					
+					@Override
+					public void componentHidden(ComponentEvent e) {
+						//sample.placeRepresentation();
+					}
+				});
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frame.getContentPane().setLayout(new BorderLayout());
+				frame.setSize(400, 400);
+				frame.getContentPane().add(vtkRendererPanel, BorderLayout.CENTER);
+				frame.setVisible(true);
 			}
 		});
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout());
-		frame.setSize(400, 400);
-		frame.getContentPane().add(p, BorderLayout.CENTER);
-		frame.setVisible(true);
 	}
 
-	private void createWidget(vtkLogoRepresentation logoRepresentation) {
+	private void createWidget() {
 		logoWidget = new vtkLogoWidget();
 		logoWidget.SetInteractor(vtkRendererPanel.getRenderWindowInteractor());
 		logoWidget.SetRepresentation(logoRepresentation);
@@ -104,7 +100,7 @@ public class VtkTOUSESample {
 		logoWidget.ProcessEventsOff();
 	}
 
-	private vtkLogoRepresentation createRepresentation() {
+	private void createRepresentation() {
 		logoRepresentation = new vtkLogoRepresentation();
 		logoRepresentation.SetImage(imageData);
 		
@@ -116,8 +112,6 @@ public class VtkTOUSESample {
 		logoRepresentation.GetImageProperty().SetOpacity(1);
 		logoRepresentation.GetBorderProperty().SetOpacity(0);
 		logoRepresentation.VisibilityOn();
-
-		return logoRepresentation;
 	}
 
 	private void placeRepresentation() {
