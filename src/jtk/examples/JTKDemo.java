@@ -2,6 +2,6 @@ package jtk.examples;
 
 public interface JTKDemo {
 
-	void demo();
+	void demo(String[] args);
 
 }

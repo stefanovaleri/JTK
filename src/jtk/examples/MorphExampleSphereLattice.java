@@ -31,7 +31,7 @@ public class MorphExampleSphereLattice implements JTKDemo {
 
 	private boolean edit = false;
 
-	public void demo() {
+	public void demo(String[] args) {
     	SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -129,8 +129,8 @@ public class MorphExampleSphereLattice implements JTKDemo {
 
     
     private void addActors() {
-//	    vtkPolyData input = getSphereData();
-	    vtkPolyData input = getBoxData();
+	    vtkPolyData input = getSphereData();
+//	    vtkPolyData input = getBoxData();
 
     	// Now create a control mesh, in this case a rectangular lattice
     	control = LatticeFactory.create1x1x1Lattice(new double[]{-2, -2, -2}, 4);
@@ -235,8 +235,8 @@ public class MorphExampleSphereLattice implements JTKDemo {
 		deform.Update();
   	   
 		vtkPolyDataMapper warpMapper = new vtkPolyDataMapper();
-		warpMapper.SetInputData(input);
-//		warpMapper.SetInputConnection(deform.GetOutputPort());
+//		warpMapper.SetInputData(input);
+		warpMapper.SetInputConnection(deform.GetOutputPort());
 		
 		vtkActor warpActor = new vtkActor();
 		warpActor.PickableOff();

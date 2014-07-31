@@ -25,5 +25,5 @@
 package jtk.core;
 
 public enum Representation {
-	SURFACE, SURFACE_WITH_EDGES, WIREFRAME
+	SURFACE, SURFACE_WITH_EDGES, WIREFRAME, OUTLINE
 }

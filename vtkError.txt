@@ -1,0 +1,15 @@
+ERROR: In /home/stefano/VTK/SRC/Rendering/OpenGL/vtkXOpenGLRenderWindow.cxx, line 383
+vtkXOpenGLRenderWindow (0x7f37a03de900): Could not find a decent visual
+
+
+
+ERROR: In /home/stefano/VTK/SRC/Rendering/OpenGL/vtkXOpenGLRenderWindow.cxx, line 383
+vtkXOpenGLRenderWindow (0x7f37a03de900): Could not find a decent visual
+
+
+
+ERROR: In /home/stefano/VTK/SRC/Rendering/OpenGL/vtkXOpenGLRenderWindow.cxx, line 383
+vtkXOpenGLRenderWindow (0x7f37a03de900): Could not find a decent visual
+
+
+

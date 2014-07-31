@@ -48,7 +48,7 @@ public class LogoExample implements JTKDemo {
 	private vtkImageData imageData;
 //	private AxesWidget axesWidget;
 
-	public void demo() {
+	public void demo(String[] args) {
 		this.imageData = createImageData();
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override

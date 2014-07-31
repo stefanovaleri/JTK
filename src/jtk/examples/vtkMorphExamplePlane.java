@@ -32,7 +32,7 @@ public class vtkMorphExamplePlane implements JTKDemo {
 
 	private boolean edit = false;
 
-	public void demo() {
+	public void demo(String[] args) {
     	SwingUtilities.invokeLater(new Runnable() {
 
 			@Override

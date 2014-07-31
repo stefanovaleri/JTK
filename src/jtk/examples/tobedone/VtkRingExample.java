@@ -1,4 +1,4 @@
-package jtk.examples;
+package jtk.examples.tobedone;
 ///*--------------------------------*- Java -*---------------------------------*\
 // |o                                                                   |                                                                                     
 // |    o     o       | HelyxOS: The Open Source GUI for OpenFOAM              |

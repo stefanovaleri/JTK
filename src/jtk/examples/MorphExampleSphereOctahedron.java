@@ -25,7 +25,7 @@ import vtk.vtkSphereSource;
 public class MorphExampleSphereOctahedron implements JTKDemo {
 
 	@Override
-	public void demo() {
+	public void demo(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {

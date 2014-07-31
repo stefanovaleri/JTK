@@ -22,7 +22,7 @@
  |   along with HelyxOS; if not, write to the Free Software Foundation,      |
  |   Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA            |
 \*---------------------------------------------------------------------------*/
-package jtk.examples;
+package jtk.examples.tobedone;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

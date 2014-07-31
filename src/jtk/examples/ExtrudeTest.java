@@ -86,7 +86,7 @@ public class ExtrudeTest implements JTKDemo {
      * specifies the CharEvent callback for the interaction control.
      */
     @Override
-    public void demo() {
+    public void demo(String[] args) {
 
         vtkPoints W21x101 = new vtkPoints();
 
